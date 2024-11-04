@@ -7,7 +7,7 @@ import avaImage from '/rehan.jpg';
 
 
 
-const contentpage = () => {
+ const contentpage = () => {
   return (
     <div className="min-h-screen bg-[#0a0e27] py-12 pt-36 relative overflow-hidden flex justify-center items-center">
       <Meteors number={30} className="opacity-70" />
@@ -51,4 +51,4 @@ const contentpage = () => {
   );
 }
 
-export default contentpage;
+export default contentpage
