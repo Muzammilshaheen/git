@@ -3,7 +3,7 @@
 import React from 'react';
 import { Meteors } from '@/components/ui/meteors';
 import Image from 'next/image';
-import avaImage from '/rehan.jpg'; 
+//import avaImage from '/5.jpg';// 
 
 
 
@@ -38,12 +38,12 @@ import avaImage from '/rehan.jpg';
         </div>
         <div className="hidden md:flex items-center justify-center w-1/2">
           <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700">
-            <Image
+          {/*  <Image
               src={avaImage}
               alt="Contact Us"
               fill
               className="rounded-full"
-            /> 
+            />*/} 
           </div>
         </div>
       </div>
