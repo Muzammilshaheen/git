@@ -1,16 +1,21 @@
-'use client'
+'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meteors } from '@/components/ui/meteors';
 import Image from 'next/image';
-//import avaImage from '/5.jpg';// 
+import avaImage from '/public/5.jpg';
 
+const ContentPage = () => {
+  const [isClient, setIsClient] = useState(false);
 
+  // Set `isClient` to `true` after the component mounts
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
- const contentpage = () => {
   return (
     <div className="min-h-screen bg-[#0a0e27] py-12 pt-36 relative overflow-hidden flex justify-center items-center">
-      <Meteors number={30} className="opacity-70" />
+      {isClient && <Meteors number={30} className="opacity-70" />}
       <div className="flex bg-[#111827] bg-opacity-60 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg overflow-hidden">
         <div className="p-8 transform transition-transform hover:scale-105">
           <h1 className="text-lg md:text-5xl text-center font-sans font-bold mb-8 text-white">
@@ -38,17 +43,18 @@ import Image from 'next/image';
         </div>
         <div className="hidden md:flex items-center justify-center w-1/2">
           <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700">
-          {/*  <Image
+            <Image
               src={avaImage}
               alt="Contact Us"
-              fill
+              layout="fill"
+              objectFit="cover"
               className="rounded-full"
-            />*/} 
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default contentpage
+export default ContentPage;
