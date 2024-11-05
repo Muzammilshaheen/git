@@ -2,8 +2,7 @@
 "use client";
 import React from "react";
 import {StickyScroll} from "./ui/sticky-scroll-reveal";
-import { span } from "framer-motion/client";
-import { Span } from "next/dist/trace";
+
 
  const codingSchoolContent = [
    {
