@@ -4,25 +4,32 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+// Define types for content to avoid using 'any'
+type ContentItem = {
+  title: string;
+  description: string;
+  content?: React.ReactNode;
+};
+
+interface StickyScrollProps {
+  content: ContentItem[];
+  contentClassName?: string;
+}
+
 export const StickyScroll = ({
   content,
   contentClassName,
-}: {
-  content: {
-    title: string;
-    description: string;
-    content?: React.ReactNode | any;
-  }[];
-  contentClassName?: string;
-}) => {
-  const [activeCard, setActiveCard] = React.useState(0);
-  const ref = useRef<any>(null);
+}: StickyScrollProps) => {
+  const [activeCard, setActiveCard] = useState(0);
+
+  // Use a more specific type for the ref
+  const ref = useRef<HTMLDivElement | null>(null);
+
   const { scrollYProgress } = useScroll({
-    // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
-    // target: ref
     container: ref,
     offset: ["start start", "end start"],
   });
+
   const cardLength = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -45,6 +52,7 @@ export const StickyScroll = ({
     "var(--black)",
     "var(--neutral-900)",
   ];
+  
   const linearGradients = [
     "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
     "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
@@ -55,9 +63,10 @@ export const StickyScroll = ({
     linearGradients[0]
   );
 
+  // Include linearGradients in the dependency array if it's dynamic.
   useEffect(() => {
     setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  }, [activeCard]);
+  }, [activeCard, linearGradients]);
 
   return (
     <motion.div
@@ -67,14 +76,12 @@ export const StickyScroll = ({
       className="h-[30rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10"
       ref={ref}
     >
-      <div className="div relative flex items-start px-4">
+      <div className="relative flex items-start px-4">
         <div className="max-w-2xl">
           {content.map((item, index) => (
             <div key={item.title + index} className="my-20">
               <motion.h2
-                initial={{
-                  opacity: 0,
-                }}
+                initial={{ opacity: 0 }}
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
@@ -83,9 +90,7 @@ export const StickyScroll = ({
                 {item.title}
               </motion.h2>
               <motion.p
-                initial={{
-                  opacity: 0,
-                }}
+                initial={{ opacity: 0 }}
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
